@@ -48,10 +48,6 @@ fn main() {
     let mut map_gen = phf_codegen::Map::new();
 
     for (id, ss) in &systems {
-        // skip wormholes
-        if *id >= 31000000 {
-            continue;
-        }
         map_gen.entry(
             id,
             format!(
@@ -79,11 +75,6 @@ fn main() {
     let mut name_gen = phf_codegen::Map::new();
 
     for (id, ss) in &systems {
-        // skip wormholes
-        if *id >= 31000000 {
-            continue;
-        }
-
         name_gen.entry(
             id,
             format!("\"{}\"", ss.name).as_str(),
