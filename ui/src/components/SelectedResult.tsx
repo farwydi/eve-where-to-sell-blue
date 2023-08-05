@@ -20,9 +20,8 @@ const SelectedResult: React.FC<SelectedResultProps> = ({selectedResult}) => {
 
     return (
         <div className="w-[500px]">
-            <h2 className="text-white">Кратчайший маршрут</h2>
-            <div className="flex">
-                <p className="text-white">От: {selectedResult.name}</p>
+            <div className="flex mb-1">
+                <h2 className="text-white">Кратчайший маршрут</h2>
                 <p className="text-white ml-auto">Jumps: <strong>{jumps(route)}</strong></p>
             </div>
             <ul>
