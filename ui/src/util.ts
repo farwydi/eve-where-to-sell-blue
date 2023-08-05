@@ -1,5 +1,9 @@
+export const securityRound = (security: number): string => {
+    return security.toFixed(1).toString()
+}
+
 export const securityColor = (security: number): string => {
-    switch (security.toFixed(1).toString()) {
+    switch (securityRound(security)) {
         case '1.0':
             return "text-security-1.0";
         case '0.9':

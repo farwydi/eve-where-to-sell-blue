@@ -1,6 +1,6 @@
 import React from 'react';
 import {Waypoint} from "eve-where-to-sell-blue";
-import {securityColor} from "../util";
+import WaypointShow from "./WaypointShow";
 
 interface SearchResultsProps {
     waypoints: Waypoint[];
@@ -18,9 +18,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({waypoints, onSelectResult}
                 <li key={waypoint.id}
                     onClick={() => handleSelectResult(waypoint)}
                     className="cursor-pointer hover:font-bold">
-                    <span className={securityColor(waypoint.security)}>
-                        {waypoint.name}
-                    </span>
+                    <WaypointShow waypoint={waypoint}/>
                 </li>
             ))}
         </ul>

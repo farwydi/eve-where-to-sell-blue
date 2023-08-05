@@ -1,6 +1,6 @@
 import React from 'react';
 import {find_where_to_sell_blue, get_waypoint, Waypoint} from "eve-where-to-sell-blue";
-import {securityColor} from "../util";
+import WaypointShow from "./WaypointShow";
 
 interface SelectedResultProps {
     selectedResult: Waypoint;
@@ -32,7 +32,7 @@ const SelectedResult: React.FC<SelectedResultProps> = ({selectedResult}) => {
                         onClick={() => {
                             navigator.clipboard.writeText(waypoint.name)
                         }}>
-                        <span className={securityColor(waypoint.security)}>{waypoint.name}</span>
+                        <WaypointShow waypoint={waypoint}/>
                     </li>
                 ))}
             </ul>
