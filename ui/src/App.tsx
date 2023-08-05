@@ -14,6 +14,10 @@ const App: React.FC = () => {
             .sort((a, b) => b.security - a.security);
 
         setSearchResults(systems);
+
+        if (systems.length == 1) {
+            setSelectedResult(systems[0]);
+        }
     };
 
     const handleSelectResult = (result: Waypoint) => {
