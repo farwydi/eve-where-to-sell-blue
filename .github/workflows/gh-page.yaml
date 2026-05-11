@@ -1,11 +1,28 @@
 name: Build and deploy
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+
+      - name: Install Rust (wasm target)
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
 
       - name: Install wasm-pack
         run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
@@ -13,9 +30,9 @@ jobs:
       - run: wasm-pack build --target web --release
         working-directory: ./route
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: latest
+          node-version: 20
 
       - name: npm install deps
         run: npm install
@@ -24,17 +41,14 @@ jobs:
       - run: npm run build
         working-directory: ./ui
 
-      - uses: actions/upload-pages-artifact@v1
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
         with:
-          name: github-pages
           path: ui/dist
 
   deploy:
     needs: build
-
-    permissions:
-      pages: write
-      id-token: write
 
     environment:
       name: github-pages
@@ -44,4 +58,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
